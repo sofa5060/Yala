@@ -8,7 +8,6 @@ body {
 	color: #333;
 	box-sizing: border-box;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-	background: rgb(233, 73, 73) !important;
 }
 
 input, button, select, textarea {

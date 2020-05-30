@@ -10,7 +10,6 @@
   const length = tweened(0);
   $: currLength = mood === 'focus' ? Math.floor((passedTime / fullTime) * 255) : Math.floor((passedTime / breakTime) * 255)
   $: length.set(currLength)
-  $: console.log(Math.floor((passedTime / breakTime) * 255),mood)
 </script>
 
 <div class="button" on:click>

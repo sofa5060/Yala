@@ -13,7 +13,7 @@
 <style>
   .watch {
     max-width: 300px;
-    margin: 10% auto 100px auto;
+    margin: 10% auto 50px auto;
   }
 
   h1 {

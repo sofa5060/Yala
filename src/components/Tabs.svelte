@@ -1,5 +1,6 @@
 <script>
   import {createEventDispatcher} from "svelte"
+  import {scale , fade , slide } from "svelte/transition"
   let dispatch = createEventDispatcher()
   export let tabs;
 
@@ -8,8 +9,8 @@
   }
 </script>
 
-<div class="background">
-  <div class="tabs">
+<div class="background" transition:fade|local={{duration:500}}>
+  <div class="tabs" transition:scale|local={{duration:500}}>
     <h3>What are you going to do ?</h3>
     <ul>
       {#each tabs as tab}
@@ -50,5 +51,6 @@
     list-style: none;
     cursor: pointer;
     font-size: 22px;
+    margin: 10px 0;
   }
 </style>
