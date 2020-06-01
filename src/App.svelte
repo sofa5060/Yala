@@ -3,15 +3,18 @@
 	import Watch from "./components/Watch.svelte"
 	import Navbar from "./components/Navbar.svelte"
 	import Button from "./components/Button.svelte"
+	import Rounds from "./components/Rounds.svelte"
 	let tabs = ['study','work','focus']
 	let activeTab = 'focus';
 	let showTabs = true;
 	let fullTime = 1500;
-	$: time = fullTime
+	$: time = mood === 'break' ? breakTime : fullTime 
 	let timerActive = false;
 	let breakTime = 300;
 	let mood = 'focus'
 	$: intervalsArr = [];
+	let rounds = 0;
+	let goal = 12;
 
 	const changeTab = (e) => {
 		activeTab = e.detail
@@ -36,14 +39,44 @@
 
 	const changeMood = () => {
 		intervalsArr.forEach(clearInterval)
-		if (mood === 'focus') {
-			time = breakTime;
+		if (mood === 'focus' && rounds % 4 === 3) {
+			time = fullTime;
+			mood = 'longBreak'
+			rounds++
 			toggleTimer()
+		}else if(mood === 'focus'){
+			time = breakTime;
 			mood ='break'
+			rounds++
+			toggleTimer()
 		}else{
 			time = fullTime;
-			toggleTimer()
 			mood = 'focus'
+			toggleTimer()
+		}
+	}
+
+	const addMinute = () => {
+		intervalsArr.forEach(clearInterval)
+		timerActive = false
+		if (mood === 'break') {
+			breakTime += 60
+		}else{
+			fullTime += 60
+		}
+	}
+
+	const removeMinute = () => {
+		intervalsArr.forEach(clearInterval)
+		timerActive = false
+		if (mood === 'break') {
+			if(breakTime > 60){
+				breakTime -= 60
+			}
+		}else{
+			if(fullTime > 60){
+			fullTime -= 60
+			}
 		}
 	}
 
@@ -57,10 +90,11 @@
 	<Tabs {tabs} on:changeTab={changeTab}/>
 {/if}
 
-<main class:focus={activeTab === "focus"} class:study={activeTab === "study"} class:work={activeTab === "work"} class:break={mood === "break"}>
+<main class:focus={activeTab === "focus"} class:study={activeTab === "study"} class:work={activeTab === "work"} class:break={mood === "break" || mood === "longBreak"}>
 	<Navbar {activeTab} {mood}/>
-	<Watch {timerActive} {time} {seconds} {minutes}/>
+	<Watch {timerActive} {time} {seconds} {minutes} on:addMinute={addMinute} on:removeMinute={removeMinute}/>
 	<Button on:click={toggleActive} {timerActive} {time} {fullTime} {breakTime} {mood}/>
+	<Rounds {rounds} />
 </main>
 
 <style>

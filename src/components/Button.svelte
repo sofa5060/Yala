@@ -6,9 +6,9 @@
   export let mood;
   export let breakTime;
   let currTime = time;
-  $: passedTime = mood === 'focus' ? fullTime - time : breakTime - time
+  $: passedTime = mood === 'focus' ||  mood === 'longBreak' ? fullTime - time : breakTime - time
   const length = tweened(0);
-  $: currLength = mood === 'focus' ? Math.floor((passedTime / fullTime) * 255) : Math.floor((passedTime / breakTime) * 255)
+  $: currLength = mood === 'focus' ||  mood === 'longBreak' ? Math.floor((passedTime / fullTime) * 255) : Math.floor((passedTime / breakTime) * 255)
   $: length.set(currLength)
 </script>
 
@@ -17,9 +17,9 @@
     <circle r="40" cx="70" cy="0" style="stroke-dashoffset: {$length}px"></circle>
   </svg>
   {#if timerActive}
-  <h3>stop</h3>
+    <h3>stop</h3>
   {:else}
-  <h3>Start</h3>
+    <h3>Start</h3>
   {/if}
 </div>
 

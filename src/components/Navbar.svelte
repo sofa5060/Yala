@@ -3,9 +3,9 @@
   export let mood;
 </script>
 
-<nav class:focus={activeTab === "focus"} class:study={activeTab === "study"} class:work={activeTab === "work"} class:break={mood === "break"}>
+<nav class:focus={activeTab === "focus"} class:study={activeTab === "study"} class:work={activeTab === "work"} class:break={mood === "break" || mood === "longBreak"}>
   <h1>Yala!</h1>
-  <h3>welcome to your dreams</h3>
+  <h3>Yala do your dream</h3>
 </nav>
 
 <style>
